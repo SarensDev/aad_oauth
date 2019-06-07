@@ -10,7 +10,6 @@ class TokenRequestDetails {
     this.params = {
       "client_id": config.clientId,
       "code": code,
-      "resource": config.resourceId,
       "redirect_uri": config.redirectUri,
       "grant_type": "authorization_code"
     };

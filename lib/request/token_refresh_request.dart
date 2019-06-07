@@ -11,7 +11,6 @@ class TokenRefreshRequestDetails {
       "client_id": config.clientId,
       "scope": config.scope,
       "redirect_uri": config.redirectUri,
-      "resource": config.resourceId,
       "grant_type": "refresh_token",
       "refresh_token": refreshToken
     };

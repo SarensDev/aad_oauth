@@ -14,7 +14,6 @@ class AuthorizationRequest {
     this.redirectUrl = config.redirectUri;
     this.parameters = {
       "client_id": config.clientId,
-      "resource": config.resourceId,
       "response_type": config.responseType,
       "redirect_uri": config.redirectUri,
       "scope": config.scope
