@@ -1,19 +1,19 @@
 class Token {
-
   //offset is subtracted from expire time
   final expireOffSet = 5;
 
   String accessToken;
   String tokenType;
   String refreshToken;
+  String idToken;
+
   DateTime issueTimeStamp;
   DateTime expireTimeStamp;
   int expiresIn;
 
   Token();
 
-  factory Token.fromJson(Map<String, dynamic> json) =>
-      Token.fromMap(json);
+  factory Token.fromJson(Map<String, dynamic> json) => Token.fromMap(json);
 
   Map toMap() => Token.toJsonMap(this);
 
@@ -29,33 +29,42 @@ class Token {
       if (model.tokenType != null) {
         ret["token_type"] = model.tokenType;
       }
-      if (model.refreshToken != null ) {
+      if (model.refreshToken != null) {
         ret["refresh_token"] = model.refreshToken;
       }
-      if (model.expiresIn != null ) {
+      if (model.expiresIn != null) {
         ret["expires_in"] = model.expiresIn;
       }
-      if (model.expireTimeStamp != null ) {
+      if (model.expireTimeStamp != null) {
         ret["expire_timestamp"] = model.expireTimeStamp.millisecondsSinceEpoch;
-      }    
+      }
+      if (model.idToken != null) {
+        ret["id_token"] = model.idToken;
+      }
     }
     return ret;
   }
 
   static Token fromMap(Map map) {
-    if (map == null)
-      throw new Exception("No token from received");
+    if (map == null) throw new Exception("No token from received");
     //error handling as described in https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow#error-response-1
-    if ( map["error"] != null )
-      throw new Exception("Error during token request: " + map["error"] + ": " + map["error_description"]);
+    if (map["error"] != null)
+      throw new Exception("Error during token request: " +
+          map["error"] +
+          ": " +
+          map["error_description"]);
 
     Token model = new Token();
     model.accessToken = map["access_token"];
     model.tokenType = map["token_type"];
     model.expiresIn = map["expires_in"];
     model.refreshToken = map["refresh_token"];
+    model.idToken = map.containsKey("id_token") ?? map["id_token"];
     model.issueTimeStamp = new DateTime.now().toUtc();
-    model.expireTimeStamp = map.containsKey("expire_timestamp") ? DateTime.fromMillisecondsSinceEpoch(map["expire_timestamp"]) : model.issueTimeStamp.add(new Duration(seconds: model.expiresIn-model.expireOffSet));
+    model.expireTimeStamp = map.containsKey("expire_timestamp")
+        ? DateTime.fromMillisecondsSinceEpoch(map["expire_timestamp"])
+        : model.issueTimeStamp
+            .add(new Duration(seconds: model.expiresIn - model.expireOffSet));
     return model;
   }
 
@@ -64,6 +73,8 @@ class Token {
   }
 
   static bool tokenIsValid(Token token) {
-    return token != null && !Token.isExpired(token) && token.accessToken != null;
+    return token != null &&
+        !Token.isExpired(token) &&
+        token.accessToken != null;
   }
 }
