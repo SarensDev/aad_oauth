@@ -10,11 +10,13 @@ class Config {
   final String responseType;
   final String contentType;
   final String scope;
+  final String resourceId;
   Rect screenSize;
 
   Config(this.azureTennantId, this.clientId, this.scope, this.redirectUri,
       {this.clientSecret,
       this.responseType = "code",
+      this.resourceId = "https://graph.microsoft.com",
       this.contentType = "application/x-www-form-urlencoded",
       this.screenSize}) {
     this.authorizationUrl =

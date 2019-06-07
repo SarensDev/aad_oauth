@@ -1,8 +1,6 @@
-
 import 'package:aad_oauth/model/config.dart';
 
 class AuthorizationRequest {
-
   String url;
   String redirectUrl;
   Map<String, String> parameters;
@@ -16,6 +14,7 @@ class AuthorizationRequest {
     this.redirectUrl = config.redirectUri;
     this.parameters = {
       "client_id": config.clientId,
+      "resource": config.resourceId,
       "response_type": config.responseType,
       "redirect_uri": config.redirectUri,
       "scope": config.scope
