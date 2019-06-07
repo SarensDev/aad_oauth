@@ -34,6 +34,15 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_secure_storage:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: develop
+      resolved-ref: "97bcdc729bfe27c892d2d7c705f021b2b6f5736e"
+      url: "https://github.com/danielwii/flutter_secure_storage.git"
+    source: git
+    version: "3.2.1+1"
   flutter_test:
     dependency: "direct dev"
     description: flutter
