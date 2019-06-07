@@ -1,7 +1,6 @@
 import 'package:aad_oauth/model/config.dart';
 
 class TokenRequestDetails {
-
   String url;
   Map<String, String> params;
   Map<String, String> headers;
@@ -11,10 +10,11 @@ class TokenRequestDetails {
     this.params = {
       "client_id": config.clientId,
       "code": code,
+      "resource": config.resourceId,
       "redirect_uri": config.redirectUri,
       "grant_type": "authorization_code"
     };
-    if ( config.clientSecret != null )
+    if (config.clientSecret != null)
       params.putIfAbsent("client_secret", () => config.clientSecret);
 
     this.headers = {
@@ -23,5 +23,3 @@ class TokenRequestDetails {
     };
   }
 }
-
-
