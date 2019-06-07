@@ -8,6 +8,7 @@ import 'request_code.dart';
 import 'request_token.dart';
 import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:corsac_jwt/corsac_jwt.dart';
 
 class AadOAuth {
   static Config _config;
@@ -46,10 +47,11 @@ class AadOAuth {
     return _token.accessToken;
   }
 
-  Future<String> getIdToken() async {
+  Future<JWT> getIdToken() async {
     if (!Token.tokenIsValid(_token)) await _performAuthorization();
+    var decodedToken = new JWT.parse(_token.idToken);
 
-    return _token.idToken;
+    return decodedToken;
   }
 
   bool tokenIsValid() {
