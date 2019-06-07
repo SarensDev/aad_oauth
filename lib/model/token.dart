@@ -59,7 +59,7 @@ class Token {
     model.tokenType = map["token_type"];
     model.expiresIn = map["expires_in"];
     model.refreshToken = map["refresh_token"];
-    model.idToken = map.containsKey("id_token") ?? map["id_token"];
+    model.idToken = map.containsKey("id_token") ? map["id_token"] : null;
     model.issueTimeStamp = new DateTime.now().toUtc();
     model.expireTimeStamp = map.containsKey("expire_timestamp")
         ? DateTime.fromMillisecondsSinceEpoch(map["expire_timestamp"])
